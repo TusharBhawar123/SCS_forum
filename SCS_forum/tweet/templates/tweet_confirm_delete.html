@@ -1,0 +1,26 @@
+
+
+{% extends 'layout.html' %} 
+{% block title %} Student Forum {% endblock %}
+{%block content %}
+<h1 class="text-center mt-4" style="color: red;"> Are you sure!, you want to delete this tweet? </h1>
+
+<form method="post" style="display: flex; justify-content: center;">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit" style="margin-right: 1em;">Delete</button>
+    <a class="btn btn-success" href="{% url 'tweet_list' %}" style="margin-left: 1em;">Cancel</a>
+</form>
+
+{% endblock %}
+
+
+{% comment %} """
+This is a template for confirming the deletion of a tweet.
+
+It displays a warning message and provides a form to confirm the deletion.
+
+The form has two buttons: "Delete" to confirm the deletion and
+"Cancel" to cancel the deletion.
+
+The form is displayed in a flex box with the buttons centered horizontally.
+""" {% endcomment %}

@@ -1,0 +1,63 @@
+{% extends 'layout.html' %} 
+{% block title %} Student Forum {% endblock %}
+{% block content %}
+<h1 class="text-center mt-4">Welcome to Siddhant College Student Forum</h1>
+
+<a class="btn btn-primary mb-4" href="{% url 'tweet_create' %}">
+  <i class="bi bi-plus-circle-fill"></i> Create a tweet
+</a>
+
+<div class="container">
+  <div class="row gap-3 justify-content-center">
+    {% for tweet in tweets %}
+      <div class="card shadow-sm" style="width: 18rem;">
+        <img src="{% if tweet.photo %}{{tweet.photo.url}}{% else %}https://picsum.photos/seed/{{tweet.id}}/286/180{% endif %}" class="card-img-top mt-3" alt="{{tweet.user.username}}'s post">
+        <div class="card-body">
+          <h5 class="card-title">{{tweet.user.username}}</h5>
+          <p class="card-text">{{tweet.text}}</p>
+          <div class="d-flex justify-content-between">
+
+            {% if tweet.user == user %}
+
+            <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-outline-primary">Edit</a>
+            <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-outline-danger">Delete</a>
+
+            {% endif%}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .card {
+    transition: transform 0.2s ease-in-out;
+  }
+  .card:hover {
+    transform: scale(1.05);
+  }
+  .card-img-top {
+    height: 180px;
+    object-fit: cover;
+  }
+</style>
+
+{% endblock %}
+
+
+
+{% comment %} """
+This is the template for the tweet list page.
+
+It extends the layout.html template and overrides the "content" block.
+
+The page displays a list of tweets, with each tweet represented by a card.
+The card displays the user who made the tweet, the text of the tweet, and
+the photo associated with the tweet.
+
+If the user who made the tweet is the same as the current user, the card
+also displays "Edit" and "Delete" buttons.
+
+The page also displays a button to create a new tweet.
+""" {% endcomment %}

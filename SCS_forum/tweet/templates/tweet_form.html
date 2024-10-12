@@ -1,0 +1,50 @@
+
+{% extends 'layout.html' %} {% block title %} Student Forum {% endblock %}
+{%block content %}
+<div class="container">
+    <h1 class="text-center mt-4">Welcome to Siddhant Collage Student Forum</h1>
+
+    <h2 class="mt-4">
+        {%if form.instance.pk %}
+            Edit Tweet
+        {% else %}
+            Create Tweet
+        {% endif %}
+    </h2>
+
+    <form method="post" enctype="multipart/form-data" class="form animate__animated animate__fadeInUp" style="width: 50%; margin: auto;">
+        {% csrf_token %}
+        <div class="mb-3 animate__animated animate__fadeIn">
+            {{ form.text.label_tag }}
+            {{ form.text }}
+            {{ form.text.errors }}
+        </div>
+        <div class="mb-3 animate__animated animate__fadeIn">
+            {{ form.photo.label_tag }}
+            {{ form.photo }}
+            {{ form.photo.errors }}
+        </div>
+        <button class="btn btn-warning animate__animated animate__fadeIn" type="submit">Submit</button>
+    </form>
+    <a href="{% url 'tweet_list' %}">Back to list</a>
+</div>
+
+{% endblock %}
+<style>
+    .animate__fadeIn {
+        animation-duration: 1.5s;
+    }
+    .animate__fadeInUp {
+        animation-duration: 2s;
+    }
+</style>
+
+{% comment %} """
+This is the template for creating a tweet or editing a tweet.
+The form is rendered from the tweetForm which is defined in the forms.py file.
+The form is posted to the same URL, which is either tweet_create or tweet_edit depending on whether the tweet is being created or edited.
+The form is rendered with a heading that is either "Edit Tweet" or "Create Tweet" depending on whether the tweet is being edited or created.
+The form is rendered with a csrf token.
+The form is rendered with enctype="multipart/form-data" so that the image can be sent.
+The form is rendered with a class of "form animate__animated animate__fadeInUp" and a style of "width: 50%; margin: auto;" so that it is centered and has a nice fade-in animation.
+""" {% endcomment %}
